@@ -1,6 +1,4 @@
-## Task description
-
-**ЗАДАНИЕ 22.** Моделирование процесса функционирования участка сборки
+##ЗАДАНИЕ 22. Моделирование процесса функционирования участка сборки
 Участок сборки включает источник кассет со сборочным материалом, два сборочных
 модуля для изготовления изделий 2-ух типов и конвейер для их транспортировки на
 склад. Кассеты поступают на сборку в среднем через t мин, образуя пуассоновский поток.
@@ -20,47 +18,3 @@
 в течение смены, т. е. 8-ми часов.
 Первоначальный перечень экспериментов: t = 6, m1 = 2, m2 = 3, τ = 5, a = 5, δ = 2, b =
 9, ε = 3, c = 4, ν =1.
-
-
-## Solution
-
-GENERATE (Poisson(1,6))   
-TRANSFER 0.75,Met2,Met1
- 
-Met1    QUEUE       queue11
-    SEIZE       stanok11
-    DEPART      queue11
-    ADVANCE     (Exponential(1,0,5))
-    ADVANCE     (Exponential(1,0,5))
-    RELEASE     stanok11
-    QUEUE       queue12
-    SEIZE       stanok12
-    DEPART      queue12
-    ADVANCE     5,2   
-    RELEASE     stanok12
-    TRANSFER    , Met3
-    
-Met2    QUEUE       queue21
-    SEIZE       stanok21
-    DEPART      queue21
-    ADVANCE     (Exponential(1,0,5))
-    ADVANCE     (Exponential(1,0,5))
-    ADVANCE     (Exponential(1,0,5))
-    RELEASE     stanok21
-    QUEUE       queue22
-    SEIZE       stanok22
-    DEPART      queue22
-    ADVANCE     9,3    
-    RELEASE     stanok22
-    TRANSFER    , Met3
- 
-Met3	QUEUE queue3
-    SEIZE       stanok3
-    DEPART      queue3
-    ADVANCE     4,1    
-    RELEASE     stanok3
-    TERMINATE 0
-
-   GENERATE    480
-   TERMINATE   1 
-   START       1
